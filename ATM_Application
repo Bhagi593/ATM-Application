@@ -1,0 +1,86 @@
+from abc import ABC,abstractmethod
+class ATM(ABC):
+    @abstractmethod
+    def withdraw():
+        pass
+
+    @abstractmethod
+    def Deposit():
+        pass`1``
+
+    @abstractmethod
+    def Balance():
+        pass
+
+    @abstractmethod
+    def PINChange():
+        pass
+
+    @abstractmethod
+    def accountDetails():
+        pass
+
+class Transaction(ATM):
+    def __init__(self,pin,balance):
+        self.__pin=pin
+        self.__balance=balance
+
+    def withdraw(self,amount):
+        epin=int(input('Enter your pin:'))
+        if epin==self.__pin:
+            if self.__balance>=amount:
+                self.__balance-=amount
+                print('Withdraw Successful')
+                b=input('Do you want to check your balance:Yes/No')
+                if b=='Yes':
+                    return self.__balance
+                else:
+                    pass
+            else:
+                return 'Insufficient Balance'
+        else:
+            print('Invalid PIN')
+        
+
+    def Deposit(self,amount):
+        epin=int(input('Enter your pin:'))
+        if epin==self.__pin:
+            self.__balance+=amount
+            print('Deposit Successful')
+            b=input('Do you want to check your balance:Yes/No')
+            if b=='Yes':
+                return self.__balance
+            else:
+                pass
+        else:
+            print('Invalid PIN')
+
+    def Balance(self):
+        epin=int(input('Enter your pin:'))
+        if epin==self.__pin:
+            return self.__balance
+        else:
+            print('Invalid PIN')
+
+    def PINChange(self):
+        epin=int(input('Enter your old pin:'))
+        if epin==self.__pin:
+            npin=int(input('Enter your new pin:'))
+            rpin=int(input('Re-Enter your new pin:'))
+            if npin==rpin:
+                self.__pin=npin
+                return 'PIN changed successfully'
+            else:
+                return 'PIN doesnt match'
+        else:
+            print('Invalid PIN')
+
+    def accountDetails(self,name,accnumber):
+        self.__holdername=name
+        self.__accnumber=accnumber
+        epin=int(input('Enter your pin:'))
+        if epin==self.__pin:
+            print(f'account holder name:{self.__holdername}')
+            print(f'account number:{self.__accnumber}')
+        else:
+            print('Invalid PIN')
